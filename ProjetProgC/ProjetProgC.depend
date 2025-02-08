@@ -1,0 +1,25 @@
+# depslib dependency file v1.0
+1739035096 source:c:\users\maxim\desktop\projet programme c\projetprogc\main.c
+	<stdio.h>
+	<stdlib.h>
+	"TableauxLabyrinthes.h"
+	"Temps.h"
+	"Affichage.h"
+	<conio.h>
+
+1735570172 c:\users\maxim\desktop\projet programme c\projetprogc\tableauxlabyrinthes.h
+
+1735570179 c:\users\maxim\desktop\projet programme c\projetprogc\temps.h
+	<time.h>
+	"Temps.c"
+
+1735570176 c:\users\maxim\desktop\projet programme c\projetprogc\temps.c
+
+1735570165 c:\users\maxim\desktop\projet programme c\projetprogc\affichage.h
+	<stdlib.h>
+	<stdio.h>
+	<windows.h>
+	"Affichage.c"
+
+1735570161 c:\users\maxim\desktop\projet programme c\projetprogc\affichage.c
+
