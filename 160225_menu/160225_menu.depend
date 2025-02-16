@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1739711852 source:c:\users\tahir\onedrive\bureau\itscm\code\projet c code (codeblock)\160225_menu\main.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+
