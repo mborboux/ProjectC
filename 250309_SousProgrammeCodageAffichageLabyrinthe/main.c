@@ -24,27 +24,27 @@ int main()
     switch (choix)
     {
         case '1' :
-        introduction();
-        printf("\nAppuyez sur Enter pour revenir au menu\n");
-        getc(stdin);
-        EffaceEcran();
-        goto menu;
+            introduction();
+            printf("\nAppuyez sur Enter pour revenir au menu\n");
+            getc(stdin);
+            EffaceEcran();
+            goto menu;
         break;
 
         case '2':
-            viderBufferClavier();
-
             printf("\nVeuillez introduire le nom du Héro \n");
             scanf("%s", nom_hero);
-            viderBufferClavier();
             printf("\nVeuillez introduire le nom de la Princesse \n");
             scanf("%s", nom_princesse);
             printf("%s, %s", nom_hero, nom_princesse);
-
+            printf("\nAppuyez sur la touche entrer pour revenir à la page d'accueil");
+            getc(stdin);
+            goto menu;
         break;
 
         case '3':
             choixLabyrinthe=choixDuLabyrinthe();
+            goto menu;
         break;
 
         case '9':
@@ -80,14 +80,14 @@ void affichageLabyrinthe(int labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe])
         printf("\n");
     }
 }
-void viderBufferClavier ()
+void viderBufferClavier()
 {
-int c;
-do
-{
-c=getch();
-}
-while (c!='\n' && c!=EOF);
+    int c;
+    do
+    {
+        c=getch();
+    }
+    while (c!='\n' && c!=EOF);
 }
 int choixDuLabyrinthe()
 {
