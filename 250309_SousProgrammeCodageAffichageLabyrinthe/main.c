@@ -44,6 +44,7 @@ int main()
 
         case '3':
             choixLabyrinthe=choixDuLabyrinthe();
+            EffaceEcran();
             goto menu;
         break;
 
