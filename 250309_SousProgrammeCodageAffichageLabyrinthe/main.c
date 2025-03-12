@@ -11,7 +11,7 @@ void introduction();
 int main()
 {
     int choixLabyrinthe=1;
-    char nom_hero[]= "Thésée";
+    char nom_hero[]= "ThÃ©sÃ©e";
     char nom_princesse[] = "Arianne";
     char choix;
 
@@ -32,13 +32,14 @@ int main()
         break;
 
         case '2':
-            printf("\nVeuillez introduire le nom du Héro \n");
+            printf("\nVeuillez introduire le nom du HÃ©ro \n");
             scanf("%s", nom_hero);
             printf("\nVeuillez introduire le nom de la Princesse \n");
             scanf("%s", nom_princesse);
             printf("%s, %s", nom_hero, nom_princesse);
-            printf("\nAppuyez sur la touche entrer pour revenir à la page d'accueil");
+            printf("\nAppuyez sur la touche entrer pour revenir Ã  la page d'accueil");
             getc(stdin);
+            EffaceEcran();
             goto menu;
         break;
 
@@ -131,13 +132,13 @@ int choixDuLabyrinthe()
 }
 void introduction()
 {
-    printf("Le Minotaure est dans la mythologie grecque, un monstre fabuleux possedant le corps d’un homme et la tête d’un taureau.");
-    printf("\nIl fut enfermé par le roi Minos dans le labyrinthe construit Dédale (au centre de la Crète).");
-    printf("\nRégulièrement, des victimes étaient envoyées dans ce labyrinthe afin d’être sacrifiées par le Minotaure.");
-    printf("\nThésée, fils d’Egée, accompagné d’autres victimes furent envoyées en Crête pour être sacrifié dans le labyrinthe par le Minotaure.");
-    printf("\nAriane, fille de Minos, tomba follement amoureuse de Thésée et sachant ce qui l’attendait dans le labyrinthe, lui remit une bobine de fil afin qu’il l’utilise pour retrouver la sortie du labyrinthe s’il ressort victorieux du combat contre le Minotaure.");
-    printf("\nThésée parvient à tuer le Minotaure et à sortir indemne du labyrinthe.");
-    printf("\nLe principe du jeu est simple, vous êtes le héros (représentant Thésée) le et vous devez chercher la princesse Ariane maintenue prisonnière à l’intérieur du labyrinthe.");
-    printf("\nEn tant que joueur (le héros Thésée) vous déplacer le héros en utilisant les touches de déplacement pour essayer de rejoindre Ariane tout en évitant de se faire attraper par le Minotaure.");
-    printf("\nLe monstrueux Minotaure à l’intérieur du labyrinthe peut se mouvoir ou pas (suivant le jeu choisi).");
+    printf("Le Minotaure est dans la mythologie grecque, un monstre fabuleux possedant le corps dâ€™un homme et la tÃªte dâ€™un taureau.");
+    printf("\nIl fut enfermÃ© par le roi Minos dans le labyrinthe construit DÃ©dale (au centre de la CrÃ¨te).");
+    printf("\nRÃ©guliÃ¨rement, des victimes Ã©taient envoyÃ©es dans ce labyrinthe afin dâ€™Ãªtre sacrifiÃ©es par le Minotaure.");
+    printf("\nThÃ©sÃ©e, fils dâ€™EgÃ©e, accompagnÃ© dâ€™autres victimes furent envoyÃ©es en CrÃªte pour Ãªtre sacrifiÃ© dans le labyrinthe par le Minotaure.");
+    printf("\nAriane, fille de Minos, tomba follement amoureuse de ThÃ©sÃ©e et sachant ce qui lâ€™attendait dans le labyrinthe, lui remit une bobine de fil afin quâ€™il lâ€™utilise pour retrouver la sortie du labyrinthe sâ€™il ressort victorieux du combat contre le Minotaure.");
+    printf("\nThÃ©sÃ©e parvient Ã  tuer le Minotaure et Ã  sortir indemne du labyrinthe.");
+    printf("\nLe principe du jeu est simple, vous Ãªtes le hÃ©ros (reprÃ©sentant ThÃ©sÃ©e) le et vous devez chercher la princesse Ariane maintenue prisonniÃ¨re Ã  lâ€™intÃ©rieur du labyrinthe.");
+    printf("\nEn tant que joueur (le hÃ©ros ThÃ©sÃ©e) vous dÃ©placer le hÃ©ros en utilisant les touches de dÃ©placement pour essayer de rejoindre Ariane tout en Ã©vitant de se faire attraper par le Minotaure.");
+    printf("\nLe monstrueux Minotaure Ã  lâ€™intÃ©rieur du labyrinthe peut se mouvoir ou pas (suivant le jeu choisi).");
 }
