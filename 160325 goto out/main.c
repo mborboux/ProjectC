@@ -8,13 +8,14 @@ void affichageLabyrinthe(int labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe]);
 void viderBufferClavier();
 int choixDuLabyrinthe();
 void introduction();
+void selectLabyrinthe(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe]);
 int main()
 {
     int choixLabyrinthe=1;
     char nom_hero[15]= "Thésée";
     char nom_princesse[15] = "Arianne";
     char choix;
-
+    int labyrintheChoisi[LargeurLabyrinthe][HauteurLabyrinthe];
 
 
 
@@ -50,7 +51,8 @@ int main()
         break;
 
         case '4':
-
+            selectLabyrinthe(choixLabyrinthe,labyrintheChoisi);
+            affichageLabyrinthe(labyrintheChoisi);
         break;
 
         case '5':
@@ -65,10 +67,51 @@ int main()
 
         break;
     }
-    EffaceEcran();
     }while (choix == '1' || choix == '2' || choix == '3' || choix == '4' || choix == '5' || choix == '6');
 
     return 0;
+}
+void selectLabyrinthe(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe])//Procédure faite pour faire le lien entre le nombre "choix de labyrinthe" et le labyrinthe choisi. Fonction non compatible avec le retour du tableau de valeur => Procédure
+{
+    int i,j;
+    switch(choixLabyrinthe){
+    case 1:
+        for(i=0; i<HauteurLabyrinthe; i++)
+        {
+            for(j=0; j< LargeurLabyrinthe; j++)
+            {
+                labyrintheChoisi[i][j] = Labyrinthe1[i][j]; //On parcourt toutes les cases du labyrinthe défini par le choix et on les mets dans le tableau "Labyrinthe Choisi" -> On récupère le labyrinthe choisi à la fin et on peut travailler avec
+            }
+        }
+        break;
+    case 2:
+        labyrintheChoisi = Labyrinthe2;
+        break;
+    case 3:
+        labyrintheChoisi = Labyrinthe3;
+        break;
+    case 4 :
+        labyrintheChoisi = Labyrinthe4;
+        break;
+    case 5 :
+        labyrintheChoisi = Labyrinthe5;
+        break;
+    case 6 :
+        return Labyrinthe6;
+        break;
+    case 7:
+        return Labyrinthe7;
+        break;
+    case 8:
+        return Labyrinthe8;
+        break;
+    case 9:
+        return Labyrinthe9;
+        break;
+    case 10 :
+        return Labyrinthe10;
+        break;
+    }
 }
 void affichageLabyrinthe(int labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe])
 {
