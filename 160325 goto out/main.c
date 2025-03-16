@@ -85,31 +85,94 @@ void selectLabyrinthe(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinth
         }
         break;
     case 2:
-        labyrintheChoisi = Labyrinthe2;
+        for(i=0; i<HauteurLabyrinthe; i++)
+        {
+            for(j=0; j< LargeurLabyrinthe; j++)
+            {
+                labyrintheChoisi[i][j] = Labyrinthe2[i][j];
+            }
+        }
+
         break;
     case 3:
-        labyrintheChoisi = Labyrinthe3;
+        for(i=0; i<HauteurLabyrinthe; i++)
+        {
+            for(j=0; j< LargeurLabyrinthe; j++)
+            {
+                labyrintheChoisi[i][j] = Labyrinthe3[i][j];
+            }
+        }
+
         break;
     case 4 :
-        labyrintheChoisi = Labyrinthe4;
+        for(i=0; i<HauteurLabyrinthe; i++)
+        {
+            for(j=0; j< LargeurLabyrinthe; j++)
+            {
+                labyrintheChoisi[i][j] = Labyrinthe4[i][j];
+            }
+        }
+
         break;
     case 5 :
-        labyrintheChoisi = Labyrinthe5;
+        for(i=0; i<HauteurLabyrinthe; i++)
+        {
+            for(j=0; j< LargeurLabyrinthe; j++)
+            {
+                labyrintheChoisi[i][j] = Labyrinthe5[i][j];
+            }
+        }
+
         break;
     case 6 :
-        return Labyrinthe6;
+        for(i=0; i<HauteurLabyrinthe; i++)
+        {
+            for(j=0; j< LargeurLabyrinthe; j++)
+            {
+                labyrintheChoisi[i][j] = Labyrinthe6[i][j];
+            }
+        }
+
         break;
     case 7:
-        return Labyrinthe7;
+        for(i=0; i<HauteurLabyrinthe; i++)
+        {
+            for(j=0; j< LargeurLabyrinthe; j++)
+            {
+                labyrintheChoisi[i][j] = Labyrinthe7[i][j];
+            }
+        }
+
         break;
     case 8:
-        return Labyrinthe8;
+        for(i=0; i<HauteurLabyrinthe; i++)
+        {
+            for(j=0; j< LargeurLabyrinthe; j++)
+            {
+                labyrintheChoisi[i][j] = Labyrinthe8[i][j];
+            }
+        }
+
         break;
     case 9:
-        return Labyrinthe9;
+        for(i=0; i<HauteurLabyrinthe; i++)
+        {
+            for(j=0; j< LargeurLabyrinthe; j++)
+            {
+                labyrintheChoisi[i][j] = Labyrinthe9[i][j];
+            }
+        }
+
         break;
     case 10 :
-        return Labyrinthe10;
+        for(i=0; i<HauteurLabyrinthe; i++)
+        {
+            for(j=0; j< LargeurLabyrinthe; j++)
+            {
+                labyrintheChoisi[i][j] = Labyrinthe10[i][j];
+            }
+        }
+
         break;
     }
 }

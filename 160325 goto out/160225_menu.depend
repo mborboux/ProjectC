@@ -76,3 +76,27 @@
 
 1741803699 c:\users\tahir\onedrive\bureau\temporaire\250309_sousprogrammecodageaffichagelabyrinthe\affichage.c
 
+1742135072 source:c:\users\tahir\onedrive\bureau\temporaire\160325 goto out\main.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	"Temps.h"
+	"TableauxLabyrinthes.h"
+	"Affichage.h"
+
+1742134794 c:\users\tahir\onedrive\bureau\temporaire\160325 goto out\temps.h
+	<time.h>
+	"Temps.c"
+
+1742134794 c:\users\tahir\onedrive\bureau\temporaire\160325 goto out\temps.c
+
+1742134794 c:\users\tahir\onedrive\bureau\temporaire\160325 goto out\tableauxlabyrinthes.h
+
+1742134794 c:\users\tahir\onedrive\bureau\temporaire\160325 goto out\affichage.h
+	<stdlib.h>
+	<stdio.h>
+	<windows.h>
+	"Affichage.c"
+
+1742134794 c:\users\tahir\onedrive\bureau\temporaire\160325 goto out\affichage.c
+
