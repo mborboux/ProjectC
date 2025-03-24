@@ -59,12 +59,11 @@ int main()
         case '4':
             EffaceEcran();
             selectLabyrinthe(choixLabyrinthe,labyrintheChoisi);
+            srand(time(NULL));
             miseEnPlacePerso(posH, posM,labyrintheChoisi);
             affichageLabyrinthe(labyrintheChoisi);
             printf ("%d, %d\n", posH[0], posH[1]);
-
-
-            FixePosCurseur(posXH, posYH);
+            FixePosCurseur(posH[0], posH[1]);
 
                 while(1)                 /// Boucle infinie où on attend l'action sur une
                              /// des touches de déplacement
@@ -83,18 +82,18 @@ int main()
             /// Touche flèche en haut actionnée
             if(touche == 72)    /// code ASCII de la touche flèche en haut
             {
-                FixePosCurseur(posXH,posYH);
+                FixePosCurseur(posH[0],posH[1]);
                 printf(" ");
-                posYH--;
+                posH[1]--;
                     /// faire ce qui doit être fait quand on veut monter en haut
             }
 
             /// Touche flèche en bas actionnée
             if(touche == 80)    /// code ASCII de la touche flèche en bas
             {
-                FixePosCurseur(posXH,posYH);
+                FixePosCurseur(posH[0],posH[1]);
                 printf(" ");
-                posYH++;
+                posH[1]++;
 
                     /// faire ce qui doit être fait quand on veut descendre en
                     /// bas
@@ -103,9 +102,9 @@ int main()
             /// Touche flèche à gauche actionnée
             if(touche == 75)    /// code ASCII de la touche flèche à gauche
             {
-                FixePosCurseur(posXH,posYH);
+                FixePosCurseur(posH[0],posH[1]);
                 printf(" ");
-                posXH--;
+                posH[0]--;
 
                     /// faire ce qui doit être fait quand on veut aller à gauche
             }
@@ -114,17 +113,17 @@ int main()
 
             if(touche == 77)    /// code ASCII de la touche flèche à droite
             {
-                FixePosCurseur(posXH,posYH);
+                FixePosCurseur(posH[0],posH[1]);
                 printf(" ");
-                posXH++;
+                posH[0]++;
 
                     /// faire ce qui doit être fait quand on veut aller à droite
             }
             if(touche == 13) break;         /// code ASCII de la touche enter
 
 	/// ensuite on répéte le processus pour toutes les touches à gérer
-        FixePosCurseur(posXH,posYH);
-   //     printf("H");
+        FixePosCurseur(posH[0],posH[1]);
+        printf("H");
 
         }  /// Fin de la condition lorsque l'on appuie sur une touche
 
@@ -262,7 +261,6 @@ void selectLabyrinthe(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinth
 }
 void affichageLabyrinthe(int labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe])
 {
-    srand(time(NULL));
     char table[HauteurLabyrinthe][LargeurLabyrinthe];
     int i,j; //definit un entier i ,et un entier utile dans le futur pour le parcours du tableau
     for(i=0; i<HauteurLabyrinthe;i++)
@@ -374,7 +372,8 @@ void miseEnPlacePerso(int posH[2], int posM[2], int Labyrinthe[HauteurLabyrinthe
             test = 1;
             posH[0] = posX;
             posH[1] = posY;
-            //printf("Position H : %d %d\n", posX, posY);
+            printf("Position labyrinthe : %d %d", posX, posY);
+            printf("Position H : %d %d\n", posH[0], posH[1]);
         };
     }while(test == 0);
     do

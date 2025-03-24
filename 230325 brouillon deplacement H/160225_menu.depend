@@ -100,3 +100,27 @@
 
 1742134794 c:\users\tahir\onedrive\bureau\temporaire\160325 goto out\affichage.c
 
+1742831078 source:c:\users\maxim\desktop\projet programme c\230325 brouillon deplacement h\main.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	"Temps.h"
+	"TableauxLabyrinthes.h"
+	"Affichage.h"
+
+1742829857 c:\users\maxim\desktop\projet programme c\230325 brouillon deplacement h\temps.h
+	<time.h>
+	"Temps.c"
+
+1742829857 c:\users\maxim\desktop\projet programme c\230325 brouillon deplacement h\temps.c
+
+1742829857 c:\users\maxim\desktop\projet programme c\230325 brouillon deplacement h\tableauxlabyrinthes.h
+
+1742829857 c:\users\maxim\desktop\projet programme c\230325 brouillon deplacement h\affichage.h
+	<stdlib.h>
+	<stdio.h>
+	<windows.h>
+	"Affichage.c"
+
+1742829857 c:\users\maxim\desktop\projet programme c\230325 brouillon deplacement h\affichage.c
+
