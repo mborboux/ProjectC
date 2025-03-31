@@ -11,7 +11,7 @@ int choixDuLabyrinthe();
 void introduction();
 void selectLabyrinthe(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe]);
 void miseEnPlacePerso(int posH[2], int posM[2], int Labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe]);
-
+void labyrintheUtiliseAffichage(int labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe], int labyrintheUtilise[HauteurLabyrinthe+1][LargeurLabyrinthe]);
 int main()
 {
     int choixLabyrinthe=1;
@@ -19,6 +19,7 @@ int main()
     char nom_princesse[15] = "Arianne";
     char choix;
     int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe];
+    int labyrintheManifeste[HauteurLabyrinthe+1][LargeurLabyrinthe];
     char touche;
     int posH[2];
     int posM[2];
@@ -57,9 +58,11 @@ int main()
         case '4':
             //possible deplacement du P & M suite à la traduction du labyrinthe en affichage
             EffaceEcran();
+            printf("\b"); //backspace effectué suite à l'apparition d'un espace parasite sur l'écran
             selectLabyrinthe(choixLabyrinthe,labyrintheChoisi);
             srand(time(NULL));
             miseEnPlacePerso(posH, posM,labyrintheChoisi);
+            labyrintheUtiliseAffichage(labyrintheChoisi,labyrintheManifeste);//labyrinthe manifeste est utilisé pour avoir un parallélisme entre l'écran de jeu et l'écran en back-end
             affichageLabyrinthe(labyrintheChoisi);
             posH[0]++;
             FixePosCurseur(posH[1], posH[0]);
@@ -82,7 +85,7 @@ int main()
             if(touche == 72)    /// code ASCII de la touche flèche en haut
             {
 
-                if(labyrintheChoisi[posH[0]-2][posH[1]]==0)
+                if(labyrintheManifeste[posH[0]-1][posH[1]]==0)
                 {
                 FixePosCurseur(posH[1],posH[0]);
                 printf(" ");
@@ -96,7 +99,7 @@ int main()
             /// Touche flèche en bas actionnée
             if(touche == 80)    /// code ASCII de la touche flèche en bas
             {
-                if (labyrintheChoisi[posH[1]][posH[0]+1]==0)
+                if (labyrintheManifeste[posH[0]+1][posH[1]]==0)
                 {
                 FixePosCurseur(posH[1],posH[0]);
                 printf(" ");
@@ -111,7 +114,7 @@ int main()
             /// Touche flèche à gauche actionnée
             if(touche == 75)    /// code ASCII de la touche flèche à gauche
             {
-                if(labyrintheChoisi[posH[0]][posH[1]-1]==0)
+                if(labyrintheManifeste[posH[0]][posH[1]-1]==0)
                 {
                 FixePosCurseur(posH[1],posH[0]);
                 printf(" ");
@@ -128,7 +131,7 @@ int main()
 
             if(touche == 77)    /// code ASCII de la touche flèche à droite
             {
-                if(labyrintheChoisi[posH[0]][posH[1]+1]==0)
+                if(labyrintheManifeste[posH[0]][posH[1]+1]==0)
                 {
                 FixePosCurseur(posH[1],posH[0]);
                 printf(" ");
@@ -278,6 +281,21 @@ void selectLabyrinthe(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinth
         }
 
         break;
+    }
+}
+void labyrintheUtiliseAffichage(int labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe], int labyrintheUtilise[HauteurLabyrinthe + 1][LargeurLabyrinthe])//HauteurLabyrinthe + 1 est effectué pour tenir compte de la ligne supplémentaire dans l'écran de jeu
+{
+    int i,j;
+    for(j=0; j<LargeurLabyrinthe; j++)//Une ligne de 1 "inutile" pour le jeu, mais utile car nous créons la ligne supplémentaire se trouvant "à l'écran"
+    {
+        labyrintheUtilise[0][j]=1;
+    }
+    for(i=1; i<HauteurLabyrinthe+1; i++)
+    {
+        for(j=0; j<LargeurLabyrinthe;j++)
+        {
+            labyrintheUtilise[i][j]=labyrinthe[i-1][j];
+        }
     }
 }
 void affichageLabyrinthe(int labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe])
