@@ -87,6 +87,8 @@ int main()
 
                 if(labyrintheManifeste[posH[0]-1][posH[1]]==0)
                 {
+                    if(labyrintheManifeste[posH[0]][posH[1]]==3)
+                        labyrintheManifeste[posH[0]][posH[1]]=0;
                 FixePosCurseur(posH[1],posH[0]);
                 printf(" ");
                 posH[0]--;
@@ -101,6 +103,8 @@ int main()
             {
                 if (labyrintheManifeste[posH[0]+1][posH[1]]==0)
                 {
+                    if(labyrintheManifeste[posH[0]][posH[1]]==3)
+                        labyrintheManifeste[posH[0]][posH[1]]=0;
                 FixePosCurseur(posH[1],posH[0]);
                 printf(" ");
                 posH[0]++;
@@ -116,6 +120,8 @@ int main()
             {
                 if(labyrintheManifeste[posH[0]][posH[1]-1]==0)
                 {
+                    if(labyrintheManifeste[posH[0]][posH[1]]==3)
+                        labyrintheManifeste[posH[0]][posH[1]]=0;
                 FixePosCurseur(posH[1],posH[0]);
                 printf(" ");
                 posH[1]--;
@@ -133,6 +139,8 @@ int main()
             {
                 if(labyrintheManifeste[posH[0]][posH[1]+1]==0)
                 {
+                    if(labyrintheManifeste[posH[0]][posH[1]]==3)
+                        labyrintheManifeste[posH[0]][posH[1]]=0;
                 FixePosCurseur(posH[1],posH[0]);
                 printf(" ");
                 posH[1]++;

@@ -196,3 +196,27 @@
 
 1743341467 c:\users\tahir\onedrive\bureau\250330 limitation\affichage.c
 
+1743437424 source:c:\users\maxim\desktop\projet programme c\250330 limitation\main.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	"Temps.h"
+	"TableauxLabyrinthes.h"
+	"Affichage.h"
+
+1743408331 c:\users\maxim\desktop\projet programme c\250330 limitation\temps.h
+	<time.h>
+	"Temps.c"
+
+1743408331 c:\users\maxim\desktop\projet programme c\250330 limitation\temps.c
+
+1743408331 c:\users\maxim\desktop\projet programme c\250330 limitation\tableauxlabyrinthes.h
+
+1743408330 c:\users\maxim\desktop\projet programme c\250330 limitation\affichage.h
+	<stdlib.h>
+	<stdio.h>
+	<windows.h>
+	"Affichage.c"
+
+1743408330 c:\users\maxim\desktop\projet programme c\250330 limitation\affichage.c
+
