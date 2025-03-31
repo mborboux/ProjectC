@@ -87,7 +87,7 @@ int main()
 
                 if(labyrintheManifeste[posH[0]-1][posH[1]]==0)
                 {
-                    if(labyrintheManifeste[posH[0]][posH[1]]==3)
+                    if(labyrintheManifeste[posH[0]][posH[1]]==3)//permet de mettre à 0 la position de base du H, et permet de refranchir celle-ci dans le futur
                         labyrintheManifeste[posH[0]][posH[1]]=0;
                 FixePosCurseur(posH[1],posH[0]);
                 printf(" ");
