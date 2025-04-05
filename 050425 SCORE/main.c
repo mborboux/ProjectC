@@ -66,7 +66,18 @@ int main()
             labyrintheUtiliseAffichage(labyrintheChoisi,labyrintheManifeste);//labyrinthe manifeste est utilisé pour avoir un parallélisme entre l'écran de jeu et l'écran en back-end
             affichageLabyrinthe(labyrintheChoisi);
             printf("SCORE: \n");
-            printf("Command for the Hero : \nUp arrow to go up\nDown arrow to go down\nLeft arrow to go left\nRight arrow to go right\nEnter to stop the game");
+            FixePosCurseur(23, 1);
+            printf("Command for the Hero :");
+            FixePosCurseur(23,2);
+            printf("Up arrow to go up");
+            FixePosCurseur(23,3);
+            printf("Down arrow to go down");
+            FixePosCurseur(23,4);
+            printf("Left arrow to go left");
+            FixePosCurseur(23,5);
+            printf("Right arrow to go right");
+            FixePosCurseur(23,6);
+            printf("Enter to stop the game");
             posH[0]++;
             FixePosCurseur(posH[1], posH[0]);
 
