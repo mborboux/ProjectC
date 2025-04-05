@@ -65,7 +65,8 @@ int main()
             miseEnPlacePerso(posH, posM,labyrintheChoisi);
             labyrintheUtiliseAffichage(labyrintheChoisi,labyrintheManifeste);//labyrinthe manifeste est utilisé pour avoir un parallélisme entre l'écran de jeu et l'écran en back-end
             affichageLabyrinthe(labyrintheChoisi);
-            printf("SCORE: ");
+            printf("SCORE: \n");
+            printf("Command for the Hero : \nUp arrow to go up\nDown arrow to go down\nLeft arrow to go left\nRight arrow to go right\nEnter to stop the game");
             posH[0]++;
             FixePosCurseur(posH[1], posH[0]);
 
@@ -85,7 +86,10 @@ int main()
                              /// ou gérer le score par exemple)
             if(touche == 72||touche ==80||touche ==77||touche ==75)
             {
-                score-=100;
+                if(score>0)
+                {
+                    score-=100;
+                }
                 FixePosCurseur(7, 21);
                 printf("%d", score);
 
@@ -203,7 +207,11 @@ int main()
 
                     /// faire ce qui doit être fait quand on veut aller à droite
             }
-            if(touche == 13) break;         /// code ASCII de la touche enter
+            if(touche == 13)
+            {
+                EffaceEcran();
+                break;
+            }         /// code ASCII de la touche enter
 
 	/// ensuite on répéte le processus pour toutes les touches à gérer
         FixePosCurseur(posH[1],posH[0]);

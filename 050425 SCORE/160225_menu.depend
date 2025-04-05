@@ -196,3 +196,27 @@
 
 1743341467 c:\users\tahir\onedrive\bureau\250330 limitation\affichage.c
 
+1743841690 source:c:\users\maxim\desktop\projet programme c\050425 score\main.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	"Temps.h"
+	"TableauxLabyrinthes.h"
+	"Affichage.h"
+
+1743841406 c:\users\maxim\desktop\projet programme c\050425 score\temps.h
+	<time.h>
+	"Temps.c"
+
+1743841406 c:\users\maxim\desktop\projet programme c\050425 score\temps.c
+
+1743841406 c:\users\maxim\desktop\projet programme c\050425 score\tableauxlabyrinthes.h
+
+1743841406 c:\users\maxim\desktop\projet programme c\050425 score\affichage.h
+	<stdlib.h>
+	<stdio.h>
+	<windows.h>
+	"Affichage.c"
+
+1743841406 c:\users\maxim\desktop\projet programme c\050425 score\affichage.c
+
