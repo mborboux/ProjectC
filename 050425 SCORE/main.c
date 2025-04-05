@@ -23,7 +23,7 @@ int main()
     char touche;
     int posH[2];
     int posM[2];
-    int score = 10000;
+    int score;
 
     do {
         printf("===Menu principal===\n1. Introduction\n2. Changer les noms\n3. Choix du labyrinthe\n4. Jeu difficulte 1\n5. Jeu difficulte 2\n6. Jeu difficulte 3\n7. Quitter le jeu\n");
@@ -59,6 +59,7 @@ int main()
         case '4':
             //possible deplacement du P & M suite à la traduction du labyrinthe en affichage
             EffaceEcran();
+            score = 10000;
             printf("\b"); //backspace effectué suite à l'apparition d'un espace parasite sur l'écran
             selectLabyrinthe(choixLabyrinthe,labyrintheChoisi);
             srand(time(NULL));
