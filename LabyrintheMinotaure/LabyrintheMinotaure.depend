@@ -1,0 +1,25 @@
+# depslib dependency file v1.0
+1745249632 source:c:\users\tahir\onedrive\bureau\itscm\code\projet c code (codeblock)\labyrintheminotaure\main.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	"Temps.h"
+	"TableauxLabyrinthes.h"
+	"Affichage.h"
+
+1743341468 c:\users\tahir\onedrive\bureau\itscm\code\projet c code (codeblock)\labyrintheminotaure\temps.h
+	<time.h>
+	"Temps.c"
+
+1743341468 c:\users\tahir\onedrive\bureau\itscm\code\projet c code (codeblock)\labyrintheminotaure\temps.c
+
+1743341467 c:\users\tahir\onedrive\bureau\itscm\code\projet c code (codeblock)\labyrintheminotaure\tableauxlabyrinthes.h
+
+1743341467 c:\users\tahir\onedrive\bureau\itscm\code\projet c code (codeblock)\labyrintheminotaure\affichage.h
+	<stdlib.h>
+	<stdio.h>
+	<windows.h>
+	"Affichage.c"
+
+1743341467 c:\users\tahir\onedrive\bureau\itscm\code\projet c code (codeblock)\labyrintheminotaure\affichage.c
+
