@@ -406,7 +406,8 @@ void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
     posH[0]++; //On incrémente la position de H de 1 pour avoir le parallélisme entre labyrinthe back-end et affichage
     FixePosCurseur(posH[1], posH[0]);
     clauseDeSortie=1; //la valeur de la clause de sortie est utilisée à la ligne suivante afin qu'elle continue à tourner jusqu'à ce que celle-ci soit nulle (condition de victoire/défaite)
-
+    /*Dans la suite du code, le FixePosCurseur et le tableau n'ont pas l'air d'avoir de lien, mais celà est dû à l'inversion des axes
+    X et Y dans notre compréhension*/
 
     while(clauseDeSortie)
     {
