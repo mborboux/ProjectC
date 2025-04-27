@@ -21,17 +21,17 @@
 #include "Affichage.h"
 #include <windows.h> //utilisé avec le setconsoleoutputCP pour gérer les caractères spéciaux
 
-void affichageLabyrinthe(int labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe]); //Procédure qui traduis le labyrinthe sous forme d'affichage
-int choixDuLabyrinthe(int easteregg[1]); // Fonction qui retourne sous forme d'entier le choix du labyrinthe
-void introduction(); // Procedure qui nous donne l'introduction du jeu
-void selectLabyrinthe(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe]); //Procedure qui permet de choisir 1 des 10 labyrinthe
-void miseEnPlaceThesee(int posH[2], int labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe]); //Procedure qui mets en place, dans le labyrinthe back-end, le personnage
-void miseEnPlaceMinotaure(int posM[2], int labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe]);
-void miseEnPlacePrincess(int Labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe]);
-void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe], int posH[2], int posM[2], int clauseDeSortie, int easteregg[1]); //Procédure qui permet le premier jeu avec le deplacement unique du héro
-void jeuTWO(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe], int posH[2], int posM[2], int clauseDeSortie); //Procédure qui permet le second jeu avec le deplacement du héro et du minotaure
+void affichageLabyrinthe(int labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe]); ///MAX //Procédure qui traduis le labyrinthe sous forme d'affichage
+int choixDuLabyrinthe(int easteregg[1]); /// MARWANE // Fonction qui retourne sous forme d'entier le choix du labyrinthe
+void introduction(); /// MARWANE // Procedure qui nous donne l'introduction du jeu
+void selectLabyrinthe(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe]); ///MARWANE //Procedure qui permet de choisir 1 des 10 labyrinthe
+void miseEnPlaceThesee(int posH[2], int labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe]); /// MAX//Procedure qui mets en place, dans le labyrinthe back-end, le personnage
+void miseEnPlaceMinotaure(int posM[2], int labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe]); ///MAX
+void miseEnPlacePrincess(int Labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe]); ///MAX
+void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe], int posH[2], int posM[2], int clauseDeSortie, int easteregg[1]); ///MARWANE //Procédure qui permet le premier jeu avec le deplacement unique du héro
+void jeuTWO(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe], int posH[2], int posM[2], int clauseDeSortie); ///MAX //Procédure qui permet le second jeu avec le deplacement du héro et du minotaure
 
-int main()
+int main() ///MAX
 {
     int choixLabyrinthe=1; //valeur initée à 1 pour selectionner le premier labyrinthe, pourra être changée dans le futur
     char nom_hero[15]= "Thésée";
