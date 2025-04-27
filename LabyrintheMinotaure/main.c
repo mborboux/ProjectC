@@ -29,9 +29,8 @@ void selectLabyrinthe(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinth
 void miseEnPlaceThesee(int posH[2], int labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe]); //Procedure qui mets en place, dans le labyrinthe back-end, le personnage
 void miseEnPlaceMinotaure(int posM[2], int labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe]);
 void miseEnPlacePrincess(int Labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe]);
-void labyrintheUtiliseAffichage(int labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe], int labyrintheUtilise[HauteurLabyrinthe+1][LargeurLabyrinthe]); //Procédure qui permet d'afficher le labyrinthe avec un saut à la ligne
-void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe], int posH[2], int posM[2], int labyrintheManifeste[HauteurLabyrinthe+1][LargeurLabyrinthe],int clauseDeSortie); //Procédure qui permet le premier jeu avec le deplacement unique du héro
-void jeuTWO(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe], int posH[2], int posM[2], int labyrintheManifeste[HauteurLabyrinthe+1][LargeurLabyrinthe], int clauseDeSortie); //Procédure qui permet le second jeu avec le deplacement du héro et du minotaure
+void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe], int posH[2], int posM[2], int clauseDeSortie); //Procédure qui permet le premier jeu avec le deplacement unique du héro
+void jeuTWO(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe], int posH[2], int posM[2], int clauseDeSortie); //Procédure qui permet le second jeu avec le deplacement du héro et du minotaure
 
 int main()
 {
@@ -41,7 +40,6 @@ int main()
     char nom_princesse[15] = "Arianne";
     char choix; //caractère utilisé pour effectué le choix dans le menu
     int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe]; //labyrinthe utilisé pour effectué le transfert du contenu du labyrinthe selectionné sur base du nombre choixLabyrinthe
-    int labyrintheManifeste[HauteurLabyrinthe+1][LargeurLabyrinthe];//Labyrinthe back-end utilisé pour manifester les déplacement sur la labyrinthe affiché
     int posH[2]; //position en X et Y de Thésée
     int posM[2]; //position en X et Y du Minotaure
     int clauseDeSortie = 1; //astuce utilisée pour signalé si le jeu fini ou non
@@ -65,11 +63,9 @@ int main()
             scanf("%s", nom_hero);
             printf("\nVeuillez introduire le nom de la Princesse \n");
             scanf("%s", nom_princesse);
-            printf("%s, %s", nom_hero, nom_princesse);
-            printf("\nAppuyez sur la touche entrer pour revenir à la page d'accueil");
-            getchar();
-            getchar();
-
+            printf("\nAppuyez sur la touche entrer pour revenir à la page d'accueil\n");
+            fflush(stdin);//vide le buffer clavier, sans quoi, l'input de l'entrée au clavier reste bloquée à la valeur du nom de la proncesse
+            getc(stdin);
             break;
 
         case '3':
@@ -80,13 +76,13 @@ int main()
 
         case '4':
 
-            jeuONE(choixLabyrinthe, labyrintheChoisi, posH, posM, labyrintheManifeste, clauseDeSortie);
+            jeuONE(choixLabyrinthe, labyrintheChoisi, posH, posM, clauseDeSortie);
 
             break;
 
         case '5':
 
-            jeuTWO(choixLabyrinthe, labyrintheChoisi, posH, posM, labyrintheManifeste, clauseDeSortie);
+            jeuTWO(choixLabyrinthe, labyrintheChoisi, posH, posM, clauseDeSortie);
 
             break;
 
@@ -376,21 +372,20 @@ void miseEnPlacePrincess(int Labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe])
 }
 
 
-void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe], int posH[2], int posM[2], int labyrintheManifeste[HauteurLabyrinthe+1][LargeurLabyrinthe], int clauseDeSortie)
+void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe], int posH[2], int posM[2], int clauseDeSortie)
 {
     //Code utilisé pour le jeu de difficulté simple où le minotaure est immobile
     int score = 10000;
     char touche;
     EffaceEcran();
-    printf("\b"); //backspace effectué suite à l'apparition d'un espace parasite sur l'écran dû à la fonction EffaceEcran
+    FixePosCurseur(0,0);//utilisé pour remettre le curseur à la position (0,0) car à la suite de l'EffaceEcran, on se retrouve à la position (1,1)
     selectLabyrinthe(choixLabyrinthe,labyrintheChoisi);
     srand(time(NULL)); //on remet le random à 0 pour eviter que la ligne suivante donne à chaque fois le même résultat
     miseEnPlaceThesee(posH,labyrintheChoisi);
     miseEnPlaceMinotaure(posM, labyrintheChoisi);
     miseEnPlacePrincess(labyrintheChoisi);
-    labyrintheUtiliseAffichage(labyrintheChoisi,labyrintheManifeste);//labyrinthe manifeste est utilisé pour avoir un parallélisme entre l'écran de jeu et l'écran en back-end
     affichageLabyrinthe(labyrintheChoisi);
-    printf("SCORE: \n");
+    printf("SCORE:%d\n", score);
     FixePosCurseur(23, 1);
     printf("Command for the Hero :");
     FixePosCurseur(23,2);
@@ -403,7 +398,6 @@ void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
     printf("Right arrow to go right");
     FixePosCurseur(23,6);
     printf("Enter to stop the game");
-    posH[0]++; //On incrémente la position de H de 1 pour avoir le parallélisme entre labyrinthe back-end et affichage
     FixePosCurseur(posH[1], posH[0]);
     clauseDeSortie=1; //la valeur de la clause de sortie est utilisée à la ligne suivante afin qu'elle continue à tourner jusqu'à ce que celle-ci soit nulle (condition de victoire/défaite)
     /*Dans la suite du code, le FixePosCurseur et le tableau n'ont pas l'air d'avoir de lien, mais celà est dû à l'inversion des axes
@@ -420,31 +414,31 @@ void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
                 {
                     score-=100;
                 }
-                FixePosCurseur(7, 21);
-                printf("%d", score);
+                FixePosCurseur(6, 20);
+                printf(" %d", score);
 
             }
             /// Touche flèche en haut actionnée
             if(touche == 72)    /// code ASCII de la touche flèche en haut
             {
 
-                if(labyrintheManifeste[posH[0]-1][posH[1]]==0)
+                if(labyrintheChoisi[posH[0]-1][posH[1]]==0)
                 {
-                    if(labyrintheManifeste[posH[0]][posH[1]]==3)//permet de mettre à 0 la position de base du H dans le labyrinthe back-end, et permet de refranchir celle-ci dans le futur
-                        labyrintheManifeste[posH[0]][posH[1]]=0;
+                    if(labyrintheChoisi[posH[0]][posH[1]]==3)//permet de mettre à 0 la position de base du H dans le labyrinthe back-end, et permet de refranchir celle-ci dans le futur
+                        labyrintheChoisi[posH[0]][posH[1]]=0;
                     FixePosCurseur(posH[1],posH[0]);
                     printf(" ");
                     posH[0]--;
                     FixePosCurseur(posH[1],posH[0]);
                     printf("H");
                 }
-                else if(labyrintheManifeste[posH[0]-1][posH[1]]==2)
+                else if(labyrintheChoisi[posH[0]-1][posH[1]]==2)
                 {
                     EffaceEcran();
                     printf("Game Over");
                     clauseDeSortie=0;//Est mise à 0 parce que c'est notre condition de boucle et qu'ainsi nous pourrons alors sortir de la boucle
                 }
-                else if(labyrintheManifeste[posH[0]-1][posH[1]]==4)
+                else if(labyrintheChoisi[posH[0]-1][posH[1]]==4)
                 {
                     EffaceEcran();
                     printf("YOU WIN !\nYOUR SCORE: %d", score);
@@ -455,23 +449,23 @@ void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
             /// Touche flèche en bas actionnée
             if(touche == 80)    /// code ASCII de la touche flèche en bas
             {
-                if (labyrintheManifeste[posH[0]+1][posH[1]]==0)
+                if (labyrintheChoisi[posH[0]+1][posH[1]]==0)
                 {
-                    if(labyrintheManifeste[posH[0]][posH[1]]==3)
-                        labyrintheManifeste[posH[0]][posH[1]]=0;
+                    if(labyrintheChoisi[posH[0]][posH[1]]==3)
+                        labyrintheChoisi[posH[0]][posH[1]]=0;
                     FixePosCurseur(posH[1],posH[0]);
                     printf(" ");
                     posH[0]++;
                     FixePosCurseur(posH[1],posH[0]);
                     printf("H");
                 }
-                else if(labyrintheManifeste[posH[0]+1][posH[1]]==2)
+                else if(labyrintheChoisi[posH[0]+1][posH[1]]==2)
                 {
                     EffaceEcran();
                     printf("Game Over");
                     clauseDeSortie=0;
                 }
-                else if(labyrintheManifeste[posH[0]+1][posH[1]]==4)
+                else if(labyrintheChoisi[posH[0]+1][posH[1]]==4)
                 {
                     EffaceEcran();
                     printf("YOU WIN !\nYOUR SCORE: %d", score);
@@ -482,23 +476,23 @@ void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
             /// Touche flèche à gauche actionnée
             if(touche == 75)    /// code ASCII de la touche flèche à gauche
             {
-                if(labyrintheManifeste[posH[0]][posH[1]-1]==0)
+                if(labyrintheChoisi[posH[0]][posH[1]-1]==0)
                 {
-                    if(labyrintheManifeste[posH[0]][posH[1]]==3)
-                        labyrintheManifeste[posH[0]][posH[1]]=0;
+                    if(labyrintheChoisi[posH[0]][posH[1]]==3)
+                        labyrintheChoisi[posH[0]][posH[1]]=0;
                     FixePosCurseur(posH[1],posH[0]);
                     printf(" ");
                     posH[1]--;
                     FixePosCurseur(posH[1],posH[0]);
                     printf("H");
                 }
-                else if(labyrintheManifeste[posH[0]][posH[1]-1]==2)
+                else if(labyrintheChoisi[posH[0]][posH[1]-1]==2)
                 {
                     EffaceEcran();
                     printf("Game Over");
                     clauseDeSortie=0;
                 }
-                else if(labyrintheManifeste[posH[0]][posH[1]-1]==4)
+                else if(labyrintheChoisi[posH[0]][posH[1]-1]==4)
                 {
                     EffaceEcran();
                     printf("YOU WIN !\nYOUR SCORE: %d", score);
@@ -512,23 +506,23 @@ void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
 
             if(touche == 77)    /// code ASCII de la touche flèche à droite
             {
-                if(labyrintheManifeste[posH[0]][posH[1]+1]==0)
+                if(labyrintheChoisi[posH[0]][posH[1]+1]==0)
                 {
-                    if(labyrintheManifeste[posH[0]][posH[1]]==3)
-                        labyrintheManifeste[posH[0]][posH[1]]=0;
+                    if(labyrintheChoisi[posH[0]][posH[1]]==3)
+                        labyrintheChoisi[posH[0]][posH[1]]=0;
                     FixePosCurseur(posH[1],posH[0]);
                     printf(" ");
                     posH[1]++;
                     FixePosCurseur(posH[1],posH[0]);
                     printf("H");
                 }
-                else if(labyrintheManifeste[posH[0]][posH[1]+1]==2)
+                else if(labyrintheChoisi[posH[0]][posH[1]+1]==2)
                 {
                     EffaceEcran();
                     printf("Game Over");
                     clauseDeSortie=0;
                 }
-                else if(labyrintheManifeste[posH[0]][posH[1]+1]==4)
+                else if(labyrintheChoisi[posH[0]][posH[1]+1]==4)
                 {
                     EffaceEcran();
                     printf("YOU WIN !\nYOUR SCORE: %d", score);
@@ -554,21 +548,19 @@ void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
 }
 
 
-void jeuTWO(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe], int posH[2], int posM[2], int labyrintheManifeste[HauteurLabyrinthe+1][LargeurLabyrinthe], int clauseDeSortie)
+void jeuTWO(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe], int posH[2], int posM[2], int clauseDeSortie)
 {
-    //possible deplacement du P & M suite à la traduction du labyrinthe en affichage
     int score = 0;
     char touche;
     EffaceEcran();
-    printf("\b"); //backspace effectué suite à l'apparition d'un espace parasite sur l'écran
+    FixePosCurseur(0,0);
     selectLabyrinthe(choixLabyrinthe,labyrintheChoisi);
     srand(time(NULL));
     miseEnPlaceThesee(posH,labyrintheChoisi);
     miseEnPlaceMinotaure(posM,labyrintheChoisi);
     miseEnPlacePrincess(labyrintheChoisi);
-    labyrintheUtiliseAffichage(labyrintheChoisi,labyrintheManifeste);//labyrinthe manifeste est utilisé pour avoir un parallélisme entre l'écran de jeu et l'écran en back-end
     affichageLabyrinthe(labyrintheChoisi);
-    printf("SCORE: \n");
+    printf("SCORE: %d\n", score);
     FixePosCurseur(23, 1);
     printf("Command for the Hero :");
     FixePosCurseur(23,2);
@@ -591,8 +583,6 @@ void jeuTWO(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
     printf("D to go right");
     FixePosCurseur(23,13);
     printf("Enter to stop the game");
-    posH[0]++;
-    posM[0]++;
     FixePosCurseur(posH[1], posH[0]);
     clauseDeSortie=1;
 
@@ -604,30 +594,30 @@ void jeuTWO(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
             if(touche == 72||touche ==80||touche ==77||touche ==75)
             {
                 score+=100;
-                FixePosCurseur(7, 21);
-                printf("%d", score);
+                FixePosCurseur(6, 20);
+                printf(" %d", score);
             }
             /// Touche flèche en haut actionnée
             if(touche == 72)    /// code ASCII de la touche flèche en haut
             {
 
-                if(labyrintheManifeste[posH[0]-1][posH[1]]==0)
+                if(labyrintheChoisi[posH[0]-1][posH[1]]==0)
                 {
-                    labyrintheManifeste[posH[0]][posH[1]]=0;
+                    labyrintheChoisi[posH[0]][posH[1]]=0;
                     FixePosCurseur(posH[1],posH[0]);
                     printf(" ");
                     posH[0]--;
-                    labyrintheManifeste[posH[0]][posH[1]]=3;
+                    labyrintheChoisi[posH[0]][posH[1]]=3;
                     FixePosCurseur(posH[1],posH[0]);
                     printf("H");
                 }
-                else if(labyrintheManifeste[posH[0]-1][posH[1]]==2)//gestion de la sortie du jeu pour le héros
+                else if(labyrintheChoisi[posH[0]-1][posH[1]]==2)//gestion de la sortie du jeu pour le héros
                 {
                     EffaceEcran();
                     printf("Game Over - Minotaur wins");
                     clauseDeSortie=0;
                 }
-                else if(labyrintheManifeste[posH[0]-1][posH[1]]==4)
+                else if(labyrintheChoisi[posH[0]-1][posH[1]]==4)
                 {
                     EffaceEcran();
                     printf("YOU WIN !\nYOUR SCORE: %d", score);
@@ -639,23 +629,23 @@ void jeuTWO(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
             /// Touche flèche en bas actionnée
             if(touche == 80)    /// code ASCII de la touche flèche en bas
             {
-                if (labyrintheManifeste[posH[0]+1][posH[1]]==0)
+                if (labyrintheChoisi[posH[0]+1][posH[1]]==0)
                 {
-                    labyrintheManifeste[posH[0]][posH[1]]=0;
+                    labyrintheChoisi[posH[0]][posH[1]]=0;
                     FixePosCurseur(posH[1],posH[0]);
                     printf(" ");
                     posH[0]++;
                     FixePosCurseur(posH[1],posH[0]);
-                    labyrintheManifeste[posH[0]][posH[1]]=3;
+                    labyrintheChoisi[posH[0]][posH[1]]=3;
                     printf("H");
                 }
-                else if(labyrintheManifeste[posH[0]+1][posH[1]]==2)
+                else if(labyrintheChoisi[posH[0]+1][posH[1]]==2)
                 {
                     EffaceEcran();
                     printf("Game Over - Minotaur wins");
                     clauseDeSortie=0;
                 }
-                else if(labyrintheManifeste[posH[0]+1][posH[1]]==4)
+                else if(labyrintheChoisi[posH[0]+1][posH[1]]==4)
                 {
                     EffaceEcran();
                     printf("YOU WIN !\nYOUR SCORE: %d", score);
@@ -667,23 +657,23 @@ void jeuTWO(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
             /// Touche flèche à gauche actionnée
             if(touche == 75)    /// code ASCII de la touche flèche à gauche
             {
-                if(labyrintheManifeste[posH[0]][posH[1]-1]==0)
+                if(labyrintheChoisi[posH[0]][posH[1]-1]==0)
                 {
-                    labyrintheManifeste[posH[0]][posH[1]]=0;
+                    labyrintheChoisi[posH[0]][posH[1]]=0;
                     FixePosCurseur(posH[1],posH[0]);
                     printf(" ");
                     posH[1]--;
                     FixePosCurseur(posH[1],posH[0]);
-                    labyrintheManifeste[posH[0]][posH[1]]=3;
+                    labyrintheChoisi[posH[0]][posH[1]]=3;
                     printf("H");
                 }
-                else if(labyrintheManifeste[posH[0]][posH[1]-1]==2)
+                else if(labyrintheChoisi[posH[0]][posH[1]-1]==2)
                 {
                     EffaceEcran();
                     printf("Game Over - Minotaur wins");
                     clauseDeSortie=0;
                 }
-                else if(labyrintheManifeste[posH[0]][posH[1]-1]==4)
+                else if(labyrintheChoisi[posH[0]][posH[1]-1]==4)
                 {
                     EffaceEcran();
                     printf("YOU WIN !\nYOUR SCORE: %d", score);
@@ -697,23 +687,23 @@ void jeuTWO(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
 
             if(touche == 77)    /// code ASCII de la touche flèche à droite
             {
-                if(labyrintheManifeste[posH[0]][posH[1]+1]==0)
+                if(labyrintheChoisi[posH[0]][posH[1]+1]==0)
                 {
-                    labyrintheManifeste[posH[0]][posH[1]]=0;
+                    labyrintheChoisi[posH[0]][posH[1]]=0;
                     FixePosCurseur(posH[1],posH[0]);
                     printf(" ");
                     posH[1]++;
                     FixePosCurseur(posH[1],posH[0]);
-                    labyrintheManifeste[posH[0]][posH[1]]=3;
+                    labyrintheChoisi[posH[0]][posH[1]]=3;
                     printf("H");
                 }
-                else if(labyrintheManifeste[posH[0]][posH[1]+1]==2)
+                else if(labyrintheChoisi[posH[0]][posH[1]+1]==2)
                 {
                     EffaceEcran();
                     printf("Game Over - Minotaur wins");
                     clauseDeSortie=0;
                 }
-                else if(labyrintheManifeste[posH[0]][posH[1]+1]==4)
+                else if(labyrintheChoisi[posH[0]][posH[1]+1]==4)
                 {
                     EffaceEcran();
                     printf("YOU WIN !\nYOUR SCORE: %d", score);
@@ -728,17 +718,17 @@ void jeuTWO(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
             if(touche == 'z')    /// Touche 'z' direction vers le haut
             {
 
-                if(labyrintheManifeste[posM[0]-1][posM[1]]==0)
+                if(labyrintheChoisi[posM[0]-1][posM[1]]==0)
                 {
-                    labyrintheManifeste[posM[0]][posM[1]]=0;
+                    labyrintheChoisi[posM[0]][posM[1]]=0;
                     FixePosCurseur(posM[1],posM[0]);
                     printf(" ");
                     posM[0]--;
-                    labyrintheManifeste[posM[0]][posM[1]]=2;
+                    labyrintheChoisi[posM[0]][posM[1]]=2;
                     FixePosCurseur(posM[1],posM[0]);
                     printf("M");
                 }
-                else if(labyrintheManifeste[posM[0]-1][posM[1]]==3 || labyrintheManifeste[posM[0]-1][posM[1]]==4)//gestion de la fin de partie pour le minotaure
+                else if(labyrintheChoisi[posM[0]-1][posM[1]]==3 || labyrintheChoisi[posM[0]-1][posM[1]]==4)//gestion de la fin de partie pour le minotaure
                 {
                     EffaceEcran();
                     printf("Game Over - Minotaur wins");
@@ -752,17 +742,17 @@ void jeuTWO(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
             /// Touche 's' actionnée
             if(touche == 's')    /// Touche 's' direction vers le bas
             {
-                if (labyrintheManifeste[posM[0]+1][posM[1]]==0)
+                if (labyrintheChoisi[posM[0]+1][posM[1]]==0)
                 {
-                    labyrintheManifeste[posM[0]][posM[1]]=0;
+                    labyrintheChoisi[posM[0]][posM[1]]=0;
                     FixePosCurseur(posM[1],posM[0]);
                     printf(" ");
                     posM[0]++;
                     FixePosCurseur(posM[1],posM[0]);
-                    labyrintheManifeste[posM[0]][posM[1]]=2;
+                    labyrintheChoisi[posM[0]][posM[1]]=2;
                     printf("M");
                 }
-                else if(labyrintheManifeste[posM[0]+1][posM[1]]==3 || labyrintheManifeste[posM[0]+1][posM[1]]==4)
+                else if(labyrintheChoisi[posM[0]+1][posM[1]]==3 || labyrintheChoisi[posM[0]+1][posM[1]]==4)
                 {
                     EffaceEcran();
                     printf("Game Over - Minotaur wins");
@@ -774,17 +764,17 @@ void jeuTWO(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
             /// Touche 'q' actionnée
             if(touche == 'q')    /// Touche 'q' direction à gauche
             {
-                if(labyrintheManifeste[posM[0]][posM[1]-1]==0)
+                if(labyrintheChoisi[posM[0]][posM[1]-1]==0)
                 {
-                    labyrintheManifeste[posM[0]][posM[1]]=0;
+                    labyrintheChoisi[posM[0]][posM[1]]=0;
                     FixePosCurseur(posM[1],posM[0]);
                     printf(" ");
                     posM[1]--;
                     FixePosCurseur(posM[1],posM[0]);
-                    labyrintheManifeste[posM[0]][posM[1]]=2;
+                    labyrintheChoisi[posM[0]][posM[1]]=2;
                     printf("M");
                 }
-                else if(labyrintheManifeste[posM[0]][posM[1]-1]==3||labyrintheManifeste[posM[0]][posM[1]-1]==4)
+                else if(labyrintheChoisi[posM[0]][posM[1]-1]==3||labyrintheChoisi[posM[0]][posM[1]-1]==4)
                 {
                     EffaceEcran();
                     printf("Game Over - Minotaur wins");
@@ -797,18 +787,18 @@ void jeuTWO(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
 
             if(touche == 'd')    /// Touche 'd' direction à droite
             {
-                if(labyrintheManifeste[posM[0]][posM[1]+1]==0)
+                if(labyrintheChoisi[posM[0]][posM[1]+1]==0)
                 {
 
-                    labyrintheManifeste[posM[0]][posM[1]]=0;
+                    labyrintheChoisi[posM[0]][posM[1]]=0;
                     FixePosCurseur(posM[1],posM[0]);
                     printf(" ");
                     posM[1]++;
                     FixePosCurseur(posM[1],posM[0]);
-                    labyrintheManifeste[posM[0]][posM[1]]=2;
+                    labyrintheChoisi[posM[0]][posM[1]]=2;
                     printf("M");
                 }
-                else if(labyrintheManifeste[posM[0]][posM[1]+1]==3||labyrintheManifeste[posM[0]][posM[1]+1]==4)
+                else if(labyrintheChoisi[posM[0]][posM[1]+1]==3||labyrintheChoisi[posM[0]][posM[1]+1]==4)
                 {
                     EffaceEcran();
                     printf("Game Over - Minotaur wins");
