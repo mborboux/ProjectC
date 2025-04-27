@@ -22,14 +22,13 @@
 #include <windows.h> //utilisé avec le setconsoleoutputCP pour gérer les caractères spéciaux
 
 void affichageLabyrinthe(int labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe]); //Procédure qui traduis le labyrinthe sous forme d'affichage
-void viderBufferClavier();
-int choixDuLabyrinthe(); // Fonction qui retourne sous forme d'entier le choix du labyrinthe
+int choixDuLabyrinthe(int easteregg[1]); // Fonction qui retourne sous forme d'entier le choix du labyrinthe
 void introduction(); // Procedure qui nous donne l'introduction du jeu
 void selectLabyrinthe(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe]); //Procedure qui permet de choisir 1 des 10 labyrinthe
 void miseEnPlaceThesee(int posH[2], int labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe]); //Procedure qui mets en place, dans le labyrinthe back-end, le personnage
 void miseEnPlaceMinotaure(int posM[2], int labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe]);
 void miseEnPlacePrincess(int Labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe]);
-void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe], int posH[2], int posM[2], int clauseDeSortie); //Procédure qui permet le premier jeu avec le deplacement unique du héro
+void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe], int posH[2], int posM[2], int clauseDeSortie, int easteregg[1]); //Procédure qui permet le premier jeu avec le deplacement unique du héro
 void jeuTWO(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe], int posH[2], int posM[2], int clauseDeSortie); //Procédure qui permet le second jeu avec le deplacement du héro et du minotaure
 
 int main()
@@ -42,6 +41,8 @@ int main()
     int posH[2]; //position en X et Y de Thésée
     int posM[2]; //position en X et Y du Minotaure
     int clauseDeSortie = 1; //astuce utilisée pour signalé si le jeu fini ou non
+    int easteregg[1] = {0}; //Labyrinthe Bonus. Création d'un tableau pour le passage d'information d'une option du code à l'autre
+
 
     do
     {
@@ -53,9 +54,9 @@ int main()
         case '1' :
             introduction();
             printf("\nAppuyez sur Enter pour revenir au menu\n");
-            getc(stdin);
+            getc(stdin); //permet de revenir au menu en appuyant sur la touche "Enter"
             EffaceEcran();
-            FixePosCurseur(0,0);
+            FixePosCurseur(0,0); //Permet de revenir à la position (0,0) car l'efface écran nous ramene à la position (1,1)
             break;
 
         case '2':
@@ -67,24 +68,24 @@ int main()
             printf("\nAppuyez sur la touche entrer pour revenir à la page d'accueil\n");
             fflush(stdin);//vide le buffer clavier, sans quoi, l'input de l'entrée au clavier reste bloquée à la valeur du nom de la proncesse
             getc(stdin);
-            SetConsoleOutputCP(850);
+            SetConsoleOutputCP(850); //Permet de revenir au Code ASCII pour éviter problème affichage labyrinthe
             break;
 
         case '3':
 
-            choixLabyrinthe=choixDuLabyrinthe();
+            choixLabyrinthe=choixDuLabyrinthe(easteregg); // Permet de faire un choix du Labyrinthe sur ceux disponible - easteregg affichage supplementaire selon certaines conditions
 
             break;
 
         case '4':
 
-            jeuONE(choixLabyrinthe, labyrintheChoisi, posH, posM, clauseDeSortie);
+            jeuONE(choixLabyrinthe, labyrintheChoisi, posH, posM, clauseDeSortie, easteregg); //Permet de choisir le premier niveau de difficulté avec le labyrinthe associé
 
             break;
 
         case '5':
 
-            jeuTWO(choixLabyrinthe, labyrintheChoisi, posH, posM, clauseDeSortie);
+            jeuTWO(choixLabyrinthe, labyrintheChoisi, posH, posM, clauseDeSortie); //Permet de choisir le deuxième niveau de difficulté avec le labyrinthe associé
 
             break;
 
@@ -94,7 +95,7 @@ int main()
             break;
         }
     }
-    while (choix == '1' || choix == '2' || choix == '3' || choix == '4' || choix == '5');
+    while (choix == '1' || choix == '2' || choix == '3' || choix == '4' || choix == '5'); //bloque la sortie tant que les valeurs de 1 à 5 ne sont pas entrées
 
     return 0;
 }
@@ -202,6 +203,16 @@ void selectLabyrinthe(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinth
         }
 
         break;
+            case 11 :
+        for(i=0; i<HauteurLabyrinthe; i++)
+        {
+            for(j=0; j< LargeurLabyrinthe; j++)
+            {
+                labyrintheChoisi[i][j] = Labyrinthe11[i][j];
+            }
+        }
+
+        break;
     }
 }
 void labyrintheUtiliseAffichage(int labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe], int labyrintheUtilise[HauteurLabyrinthe + 1][LargeurLabyrinthe])//HauteurLabyrinthe + 1 est effectué pour tenir compte de la ligne supplémentaire dans l'écran de jeu
@@ -257,16 +268,8 @@ void affichageLabyrinthe(int labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe])
         printf("\n");
     }
 }
-void viderBufferClavier()
-{
-    int c;
-    do
-    {
-        c=getch();
-    }
-    while (c!='\n' && c!=EOF);
-}
-int choixDuLabyrinthe()
+
+int choixDuLabyrinthe(int easteregg[1]) //permet de choisir ton labyrinthe + exception "easteregg"
 {
     int choixLabyrinthe;
     printf("Labyrinthe 1:\n");
@@ -299,12 +302,27 @@ int choixDuLabyrinthe()
     printf("\nLabyrinthe 10:\n");
     affichageLabyrinthe(Labyrinthe10);
     getc(stdin);
-    do
+    if(easteregg[0]==1)        //condition easteregg = 1, activation Labyrinthe 11
     {
-        printf("\nAvec quel labyrinthe souhaitez-vous jouer ?\n");
-        scanf("%d", &choixLabyrinthe); //Permet de stocker pour le futur la valeur choixLabyrinthe
+        printf("\nLabyrinthe 11:\n");
+        affichageLabyrinthe(Labyrinthe11);
+        getc(stdin);
+        do
+        {
+            printf("\nAvec quel labyrinthe souhaitez-vous jouer ?\n");
+            scanf("%d", &choixLabyrinthe); //Permet de stocker pour le futur la valeur choixLabyrinthe
+        }
+        while(choixLabyrinthe< 1 || choixLabyrinthe>11);
     }
-    while(choixLabyrinthe< 0 || choixLabyrinthe>11); //empeche la valeur choixLabyrinthe d'être inférieure ou égale à 0 ou supérieure ou égale à 11
+    else
+    {
+        do
+        {
+            printf("\nAvec quel labyrinthe souhaitez-vous jouer ?\n");
+            scanf("%d", &choixLabyrinthe); //Permet de stocker pour le futur la valeur choixLabyrinthe
+        }
+        while(choixLabyrinthe< 1 || choixLabyrinthe>10);//empeche la valeur choixLabyrinthe d'être inférieure ou égale à 0 ou supérieure ou égale à 11
+    }
     return choixLabyrinthe;
 }
 void introduction()
@@ -319,7 +337,7 @@ void introduction()
     printf("\nLe principe du jeu est simple, vous êtes le héros (représentant Thésée) et vous devez chercher la princesse Ariane maintenue prisonnière à l'intérieur du labyrinthe.");
     printf("\nEn tant que joueur (le héros Thésée) vous déplacer le héros en utilisant les touches de déplacement pour essayer de rejoindre Ariane tout en évitant de se faire attraper par le Minotaure.");
     printf("\nLe monstrueux Minotaure à l'intérieur du labyrinthe peut se mouvoir ou pas (suivant le jeu choisi).");
-    SetConsoleOutputCP(850);
+    SetConsoleOutputCP(850); //utilisé pour revenir au code ASCII
 }
 
 
@@ -339,7 +357,8 @@ void miseEnPlaceThesee(int posH[2], int labyrinthe[HauteurLabyrinthe][LargeurLab
             posH[0] = posX;
             posH[1] = posY;
         };
-    }while(test == 0); //Continue à refaire les mêmes étapes tant que la valeur est à 0 (tant qu'on est pas passé dans le if ci-dessus)
+    }
+    while(test == 0);  //Continue à refaire les mêmes étapes tant que la valeur est à 0 (tant qu'on est pas passé dans le if ci-dessus)
 }
 void miseEnPlaceMinotaure(int posM[2], int labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe])
 {
@@ -357,7 +376,8 @@ void miseEnPlaceMinotaure(int posM[2], int labyrinthe[HauteurLabyrinthe][Largeur
             posM[0] = posX;
             posM[1] = posY;
         };
-    }while(test == 0);
+    }
+    while(test == 0);
 }
 void miseEnPlacePrincess(int Labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe])
 {
@@ -372,11 +392,12 @@ void miseEnPlacePrincess(int Labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe])
             Labyrinthe[posX][posY] = 4; //mets en place la princesse dans le labyrinthe
             test = 1;//mets la valeur à 2 pour sortir de la boucele
         };
-    }while(test == 0);
+    }
+    while(test == 0);
 }
 
 
-void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe], int posH[2], int posM[2], int clauseDeSortie)
+void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe], int posH[2], int posM[2], int clauseDeSortie, int easteregg[1])
 {
     //Code utilisé pour le jeu de difficulté simple où le minotaure est immobile
     int score = 10000;
@@ -413,14 +434,22 @@ void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
         {
             touche=getch();
             if(touche == 72||touche ==80||touche ==77||touche ==75)
+                /*  Cette partie du code permet un décompte sur la valeur du score de 10.000 par tranche de 100
+                    une modification de l'affichage lorsque le score est en dessous de 1000
+                    afin de permettre à l'utilisateur dans l'invité de cmd d'avoir un affichage visuel correcte du score
+                */
+
             {
                 if(score>0)
                 {
                     score-=100;
                 }
-                FixePosCurseur(6, 20);
+                FixePosCurseur(6,20);
+                if(score<1000)
+                {
+                    printf(" ");
+                }
                 printf(" %d", score);
-
             }
             /// Touche flèche en haut actionnée
             if(touche == 72)    /// code ASCII de la touche flèche en haut
@@ -441,6 +470,9 @@ void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
                     EffaceEcran();
                     printf("Game Over");
                     clauseDeSortie=0;//Est mise à 0 parce que c'est notre condition de boucle et qu'ainsi nous pourrons alors sortir de la boucle
+                    if(score==100 && easteregg[0]!=1) //2 conditions sont necessaires pour activer le labyrinthe caché (score final = 100) (valeur initiale dans l'etat prévu pour son activation)
+                        easteregg[0]=1; //la valeur dans le tableau est modifié par cette aciton
+
                 }
                 else if(labyrintheChoisi[posH[0]-1][posH[1]]==4)
                 {
@@ -468,6 +500,8 @@ void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
                     EffaceEcran();
                     printf("Game Over");
                     clauseDeSortie=0;
+                    if(score==100 && easteregg[0]!=1)
+                        easteregg[0]=1;
                 }
                 else if(labyrintheChoisi[posH[0]+1][posH[1]]==4)
                 {
@@ -495,6 +529,8 @@ void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
                     EffaceEcran();
                     printf("Game Over");
                     clauseDeSortie=0;
+                    if(score==100 && easteregg[0]!=1)
+                        easteregg[0]=1;
                 }
                 else if(labyrintheChoisi[posH[0]][posH[1]-1]==4)
                 {
@@ -525,6 +561,8 @@ void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
                     EffaceEcran();
                     printf("Game Over");
                     clauseDeSortie=0;
+                    if(score==100 && easteregg[0]!=1)
+                        easteregg[0]=1;
                 }
                 else if(labyrintheChoisi[posH[0]][posH[1]+1]==4)
                 {
@@ -547,7 +585,6 @@ void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
         }
 
     }
-
 
 }
 
