@@ -69,6 +69,8 @@ int main() ///MAX
             fflush(stdin);//vide le buffer clavier, sans quoi, l'input de l'entrée au clavier reste bloquée à la valeur du nom de la proncesse
             getc(stdin);
             SetConsoleOutputCP(850); //Permet de revenir au Code ASCII pour éviter problème affichage labyrinthe
+            EffaceEcran();
+            FixePosCurseur(0,0);
             break;
 
         case '3':
