@@ -34,7 +34,6 @@ void jeuTWO(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
 
 int main()
 {
-    SetConsoleOutputCP(65001);//utilisé pour gérer les caractères type "é", "è",... Cette référence nous a été fourni après une recherche sur le sujet (unique recherche externe pour le code)
     int choixLabyrinthe=1; //valeur initée à 1 pour selectionner le premier labyrinthe, pourra être changée dans le futur
     char nom_hero[15]= "Thésée";
     char nom_princesse[15] = "Arianne";
@@ -55,10 +54,12 @@ int main()
             introduction();
             printf("\nAppuyez sur Enter pour revenir au menu\n");
             getc(stdin);
-
+            EffaceEcran();
+            FixePosCurseur(0,0);
             break;
 
         case '2':
+            SetConsoleOutputCP(1252);//utilisé pour gérer les caractères type "é", "è",... Cette référence nous a été fourni après une recherche sur le sujet (unique recherche externe pour le code
             printf("\nVeuillez introduire le nom du Héro \n");
             scanf("%s", nom_hero);
             printf("\nVeuillez introduire le nom de la Princesse \n");
@@ -307,6 +308,7 @@ int choixDuLabyrinthe()
 }
 void introduction()
 {
+    SetConsoleOutputCP(1252);//utilisé pour gérer les caractères type "é", "è",... Cette référence nous a été fourni après une recherche sur le sujet (unique recherche externe pour le code
     printf("Le Minotaure est dans la mythologie grecque, un monstre fabuleux possedant le corps d'un homme et la tête d'un taureau.");
     printf("\nIl fut enfermé par le roi Minos dans le labyrinthe construit Dédale (au centre de la Crète).");
     printf("\nRégulièrement, des victimes étaient envoyées dans ce labyrinthe afin d'être sacrifiées par le Minotaure.");
