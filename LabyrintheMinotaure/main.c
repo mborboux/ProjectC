@@ -346,7 +346,7 @@ void introduction()
 void miseEnPlaceThesee(int posH[2], int labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe]) //met en place les personnes dans le tableau avec les chiffres 2, 3 et 4
 {
     int posX, posY;
-    int test = 0; //servira de valeur test dans le futur pour sortir des 3 boucles futures
+    int conditionDeSortie = 1; //servira de valeur test dans le futur pour sortir de la boucle
     do
     {
         posX = rand()%HauteurLabyrinthe; //effectue une randomisation des nombres pour posX et posY
@@ -355,17 +355,17 @@ void miseEnPlaceThesee(int posH[2], int labyrinthe[HauteurLabyrinthe][LargeurLab
         if(labyrinthe[posX][posY]==0)
         {
             labyrinthe[posX][posY] = 3; //met en place Thésée dans le labyrinthe et conserve en mémoire la position de celui-ci
-            test = 1;//mets la valeur à 1 pour sortir de la boucle
+            conditionDeSortie = 0;//mets la valeur à 0 pour sortir de la boucle
             posH[0] = posX;
             posH[1] = posY;
         };
     }
-    while(test == 0);  //Continue à refaire les mêmes étapes tant que la valeur est à 0 (tant qu'on est pas passé dans le if ci-dessus)
+    while(conditionDeSortie);  //Continue à refaire les mêmes étapes tant que la valeur est à 1 (tant qu'on est pas passé dans le if ci-dessus)
 }
 void miseEnPlaceMinotaure(int posM[2], int labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe])
 {
     int posX, posY;
-    int test = 0; //servira de valeur test dans le futur pour sortir des 3 boucles futures
+    int conditionDeSortie = 1; //servira de valeur test dans le futur pour sortir des 3 boucles futures
     do
     {
         posX = rand()%HauteurLabyrinthe; //effectue une randomisation des nombres pour posX et posY
@@ -374,16 +374,16 @@ void miseEnPlaceMinotaure(int posM[2], int labyrinthe[HauteurLabyrinthe][Largeur
         if(labyrinthe[posX][posY]==0)
         {
             labyrinthe[posX][posY] = 2; //met en place le Minotaure dans le labyrinthe et conserve en mémoire la position de celui-ci
-            test = 1;//mets la valeur à 1 pour sortir de la boucle
+            conditionDeSortie = 0;//mets la valeur à 0 pour sortir de la boucle
             posM[0] = posX;
             posM[1] = posY;
         };
     }
-    while(test == 0);
+    while(conditionDeSortie);
 }
 void miseEnPlacePrincess(int Labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe])
 {
-    int test = 0;
+    int conditionDeSortie = 1;
     int posX, posY;
     do
     {
@@ -392,10 +392,10 @@ void miseEnPlacePrincess(int Labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe])
         if(Labyrinthe[posX][posY]==0)
         {
             Labyrinthe[posX][posY] = 4; //mets en place la princesse dans le labyrinthe
-            test = 1;//mets la valeur à 2 pour sortir de la boucele
+            conditionDeSortie = 0;//mets la valeur à 0 pour sortir de la boucele
         };
     }
-    while(test == 0);
+    while(conditionDeSortie);
 }
 
 
