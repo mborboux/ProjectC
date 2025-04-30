@@ -626,7 +626,6 @@ void jeuTWO(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
     printf("D to go right");
     FixePosCurseur(23,13);
     printf("Enter to stop the game");
-    FixePosCurseur(posH[1], posH[0]);
     clauseDeSortie=1;
 
     while(clauseDeSortie)
@@ -853,7 +852,6 @@ void jeuTWO(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
                 EffaceEcran();
                 break;
             }         /// code ASCII de la touche enter
-            FixePosCurseur(posH[1],posH[0]);
         }
     }
 }
