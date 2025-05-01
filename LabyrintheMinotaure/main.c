@@ -34,7 +34,8 @@ void jeuTWO(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
 
 int main() ///MAX
 {
-    int choixLabyrinthe=1; //valeur initée à 1 pour selectionner le premier labyrinthe, pourra être changée dans le futur
+    srand(time(NULL));
+    int choixLabyrinthe=rand()%9 + 1; //valeur initée à une valeur entre 1 et 10 pour permettre la sélection d'un labyrinthe au hasard
     char nom_hero[15]= "Thésée";
     char nom_princesse[15] = "Arianne";
     char choix; //caractère utilisé pour effectué le choix dans le menu
@@ -82,6 +83,8 @@ int main() ///MAX
 
             break;
         }
+        EffaceEcran();
+        FixePosCurseur(0,0);
     }
     while (choix < 1 || choix >6); //bloque la sortie tant que les valeurs de 1 à 5 ne sont pas entrées
 
