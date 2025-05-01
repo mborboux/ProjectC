@@ -24,6 +24,7 @@
 void affichageLabyrinthe(int labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe]); ///MAX //Procédure qui traduis le labyrinthe sous forme d'affichage
 int choixDuLabyrinthe(int easteregg[1]); /// MARWANE // Fonction qui retourne sous forme d'entier le choix du labyrinthe
 void introduction(); /// MARWANE // Procedure qui nous donne l'introduction du jeu
+void renameCharacter(char nom_hero[], char nom_princesse[]);
 void selectLabyrinthe(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe]); ///MARWANE //Procedure qui permet de choisir 1 des 10 labyrinthe
 void miseEnPlaceThesee(int posH[2], int labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe]); /// MAX//Procedure qui mets en place, dans le labyrinthe back-end, le personnage
 void miseEnPlaceMinotaure(int posM[2], int labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe]); ///MAX
@@ -46,7 +47,7 @@ int main() ///MAX
 
     do
     {
-        printf("\n===Menu principal===\n1. Introduction\n2. Changer les noms\n3. Choix du labyrinthe\n4. Jeu difficulte 1\n5. Jeu difficulte 2\n6. Quitter le jeu\n");
+        printf("\n===Menu principal===\n1. Introduction\n2. Changer les noms\n3. Choix du labyrinthe\n4. Jeu difficulte 1\n5. Jeu difficulte 2\n");
         choix = getch();//permet d'établir un choix sans la commande entrée
 
         switch (choix)
@@ -60,17 +61,7 @@ int main() ///MAX
             break;
 
         case '2':
-            SetConsoleOutputCP(1252);//utilisé pour gérer les caractères type "é", "è",... Cette référence nous a été fourni après une recherche sur le sujet (unique recherche externe pour le code
-            printf("\nVeuillez introduire le nom du Héro \n");
-            scanf("%s", nom_hero);
-            printf("\nVeuillez introduire le nom de la Princesse \n");
-            scanf("%s", nom_princesse);
-            printf("\nAppuyez sur la touche entrer pour revenir à la page d'accueil\n");
-            fflush(stdin);//vide le buffer clavier, sans quoi, l'input de l'entrée au clavier reste bloquée à la valeur du nom de la proncesse
-            getc(stdin);
-            SetConsoleOutputCP(850); //Permet de revenir au Code ASCII pour éviter problème affichage labyrinthe
-            EffaceEcran();
-            FixePosCurseur(0,0);
+            renameCharacter(nom_hero, nom_princesse);
             break;
 
         case '3':
@@ -90,16 +81,25 @@ int main() ///MAX
             jeuTWO(choixLabyrinthe, labyrintheChoisi, posH, posM, clauseDeSortie); //Permet de choisir le deuxième niveau de difficulté avec le labyrinthe associé
 
             break;
-
-
-        case '6':
-
-            break;
         }
     }
-    while (choix == '1' || choix == '2' || choix == '3' || choix == '4' || choix == '5'); //bloque la sortie tant que les valeurs de 1 à 5 ne sont pas entrées
+    while (choix < 1 || choix >6); //bloque la sortie tant que les valeurs de 1 à 5 ne sont pas entrées
 
     return 0;
+}
+void renameCharacter(char nom_hero[], char nom_princesse[])// Ce code reprend pour argument les 2 chaines de caractères contenant les noms du héros et de la princesse, ceux-ci peuvent être modulé comme on le souhaite
+{
+    SetConsoleOutputCP(1252);//utilisé pour gérer les caractères type "é", "è",... Cette référence nous a été fourni après une recherche sur le sujet (unique recherche externe pour le code
+    printf("\nVeuillez introduire le nom du Héro \n");
+    scanf("%s", nom_hero);
+    printf("\nVeuillez introduire le nom de la Princesse \n");
+    scanf("%s", nom_princesse);
+    printf("\nAppuyez sur la touche entrer pour revenir à la page d'accueil\n");
+    fflush(stdin);//vide le buffer clavier, sans quoi, l'input de l'entrée au clavier reste bloquée à la valeur du nom de la proncesse
+    getc(stdin);
+    SetConsoleOutputCP(850); //Permet de revenir au Code ASCII pour éviter problème affichage labyrinthe
+    EffaceEcran();
+    FixePosCurseur(0,0);
 }
 void selectLabyrinthe(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe])//Procédure faite pour faire le lien entre le nombre "choix de labyrinthe" et le labyrinthe choisi. Fonction non compatible avec le retour du tableau de valeur => Procédure
 {
