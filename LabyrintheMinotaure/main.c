@@ -406,6 +406,7 @@ void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
 {
     //Code utilisé pour le jeu de difficulté simple où le minotaure est immobile
     int score = 10000;
+    int scoreMinus=0;//permet de vérifier si le déplacement s'est fait ou pas, et en fonction, de décrémenté le score affiché.
     char touche;
     EffaceEcran();
     FixePosCurseur(0,0);//utilisé pour remettre le curseur à la position (0,0) car à la suite de l'EffaceEcran, on se retrouve à la position (1,1)
@@ -438,24 +439,7 @@ void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
         if(kbhit())
         {
             touche=getch();
-            if(touche == 72||touche ==80||touche ==77||touche ==75)
-                /*  Cette partie du code permet un décompte sur la valeur du score de 10.000 par tranche de 100
-                    une modification de l'affichage lorsque le score est en dessous de 1000
-                    afin de permettre à l'utilisateur dans l'invité de cmd d'avoir un affichage visuel correcte du score
-                */
 
-            {
-                if(score>0)
-                {
-                    score-=100;
-                }
-                FixePosCurseur(6,20);
-                if(score<1000)
-                {
-                    printf(" ");
-                }
-                printf(" %d", score);
-            }
             /// Touche flèche en haut actionnée
             if(touche == 72)    /// code ASCII de la touche flèche en haut
             {
@@ -469,6 +453,7 @@ void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
                     posH[0]--;
                     FixePosCurseur(posH[1],posH[0]);
                     printf("H");
+                    scoreMinus=1;//mise à un du scoreMinus pour valider le code ci-dessous
                 }
                 else if(labyrintheChoisi[posH[0]-1][posH[1]]==2)
                 {
@@ -501,6 +486,7 @@ void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
                     posH[0]++;
                     FixePosCurseur(posH[1],posH[0]);
                     printf("H");
+                    scoreMinus=1;
                 }
                 else if(labyrintheChoisi[posH[0]+1][posH[1]]==2)
                 {
@@ -532,6 +518,7 @@ void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
                     posH[1]--;
                     FixePosCurseur(posH[1],posH[0]);
                     printf("H");
+                    scoreMinus=1;
                 }
                 else if(labyrintheChoisi[posH[0]][posH[1]-1]==2)
                 {
@@ -566,6 +553,7 @@ void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
                     posH[1]++;
                     FixePosCurseur(posH[1],posH[0]);
                     printf("H");
+                    scoreMinus=1;
                 }
                 else if(labyrintheChoisi[posH[0]][posH[1]+1]==2)
                 {
@@ -591,7 +579,25 @@ void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
                 EffaceEcran();
                 break;
             }         /// code ASCII de la touche enter
+            if(scoreMinus)
+                /*  Cette partie du code permet un décompte sur la valeur du score de 10.000 par tranche de 100
+                    une modification de l'affichage lorsque le score est en dessous de 1000
+                    afin de permettre à l'utilisateur dans l'invité de cmd d'avoir un affichage visuel correcte du score
+                */
 
+            {
+                if(score>0)
+                {
+                    score-=100;
+                }
+                FixePosCurseur(6,20);
+                if(score<1000)
+                {
+                    printf(" ");
+                }
+                printf(" %d", score);
+                scoreMinus=0;
+            }
             FixePosCurseur(posH[1],posH[0]);
 
 
@@ -605,6 +611,7 @@ void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
 void jeuTWO(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe], int posH[2], int posM[2], int clauseDeSortie)
 {
     int score = 0;
+    int scorePlus=0;
     char touche;
     EffaceEcran();
     FixePosCurseur(0,0);
@@ -644,12 +651,6 @@ void jeuTWO(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
         if(kbhit())
         {
             touche=getch();
-            if(touche == 72||touche ==80||touche ==77||touche ==75)
-            {
-                score+=100;
-                FixePosCurseur(6, 20);
-                printf(" %d", score);
-            }
             /// Touche flèche en haut actionnée
             if(touche == 72)    /// code ASCII de la touche flèche en haut
             {
@@ -663,6 +664,7 @@ void jeuTWO(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
                     labyrintheChoisi[posH[0]][posH[1]]=3;
                     FixePosCurseur(posH[1],posH[0]);
                     printf("H");
+                    scorePlus=1;
                 }
                 else if(labyrintheChoisi[posH[0]-1][posH[1]]==2)//gestion de la sortie du jeu pour le héros
                 {
@@ -693,6 +695,7 @@ void jeuTWO(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
                     FixePosCurseur(posH[1],posH[0]);
                     labyrintheChoisi[posH[0]][posH[1]]=3;
                     printf("H");
+                    scorePlus=1;
                 }
                 else if(labyrintheChoisi[posH[0]+1][posH[1]]==2)
                 {
@@ -723,6 +726,7 @@ void jeuTWO(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
                     FixePosCurseur(posH[1],posH[0]);
                     labyrintheChoisi[posH[0]][posH[1]]=3;
                     printf("H");
+                    scorePlus=1;
                 }
                 else if(labyrintheChoisi[posH[0]][posH[1]-1]==2)
                 {
@@ -755,6 +759,7 @@ void jeuTWO(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
                     FixePosCurseur(posH[1],posH[0]);
                     labyrintheChoisi[posH[0]][posH[1]]=3;
                     printf("H");
+                    scorePlus=1;
                 }
                 else if(labyrintheChoisi[posH[0]][posH[1]+1]==2)
                 {
@@ -870,11 +875,18 @@ void jeuTWO(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
                     clauseDeSortie=0;
                 }
             }
-            if(touche == 13)
+            if(touche == 13)         /// code ASCII de la touche enter
             {
                 EffaceEcran();
                 break;
-            }         /// code ASCII de la touche enter
+            }
+            if(scorePlus)
+            {
+                score+=100;
+                FixePosCurseur(6, 20);
+                printf(" %d", score);
+                scorePlus=0;
+            }
         }
     }
 }
