@@ -29,8 +29,8 @@ void selectLabyrinthe(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinth
 void miseEnPlaceThesee(int posH[2], int labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe]); /// MAX//Procedure qui mets en place, dans le labyrinthe back-end, le personnage
 void miseEnPlaceMinotaure(int posM[2], int labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe]); ///MAX
 void miseEnPlacePrincess(int Labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe]); ///MAX
-void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe], int posH[2], int posM[2], int clauseDeSortie, int easteregg[1]); ///MARWANE //Procédure qui permet le premier jeu avec le deplacement unique du héro
-void jeuTWO(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe], int posH[2], int posM[2], int clauseDeSortie); ///MAX //Procédure qui permet le second jeu avec le deplacement du héro et du minotaure
+void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe], int posH[2], int posM[2], int easteregg[1]); ///MARWANE //Procédure qui permet le premier jeu avec le deplacement unique du héro
+void jeuTWO(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe], int posH[2], int posM[2]); ///MAX //Procédure qui permet le second jeu avec le deplacement du héro et du minotaure
 
 int main() ///MAX
 {
@@ -42,7 +42,6 @@ int main() ///MAX
     int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe]; //labyrinthe utilisé pour effectué le transfert du contenu du labyrinthe selectionné sur base du nombre choixLabyrinthe
     int posH[2]; //position en X et Y de Thésée
     int posM[2]; //position en X et Y du Minotaure
-    int clauseDeSortie = 1; //astuce utilisée pour signalé si le jeu fini ou non
     int easteregg[1] = {0}; //Labyrinthe Bonus. Création d'un tableau pour le passage d'information d'une option du code à l'autre
 
 
@@ -73,13 +72,13 @@ int main() ///MAX
 
         case '4':
 
-            jeuONE(choixLabyrinthe, labyrintheChoisi, posH, posM, clauseDeSortie, easteregg); //Permet de choisir le premier niveau de difficulté avec le labyrinthe associé
+            jeuONE(choixLabyrinthe, labyrintheChoisi, posH, posM, easteregg); //Permet de choisir le premier niveau de difficulté avec le labyrinthe associé
 
             break;
 
         case '5':
 
-            jeuTWO(choixLabyrinthe, labyrintheChoisi, posH, posM, clauseDeSortie); //Permet de choisir le deuxième niveau de difficulté avec le labyrinthe associé
+            jeuTWO(choixLabyrinthe, labyrintheChoisi, posH, posM); //Permet de choisir le deuxième niveau de difficulté avec le labyrinthe associé
 
             break;
         }
@@ -402,10 +401,11 @@ void miseEnPlacePrincess(int Labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe])
 }
 
 
-void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe], int posH[2], int posM[2], int clauseDeSortie, int easteregg[1])
+void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe], int posH[2], int posM[2], int easteregg[1])
 {
     //Code utilisé pour le jeu de difficulté simple où le minotaure est immobile
     int score = 10000;
+    int clauseDeSortie = 1; //la valeur de la clause de sortie est utilisée à la ligne suivante afin qu'elle continue à tourner jusqu'à ce que celle-ci soit nulle (condition de victoire/défaite)
     int scoreMinus=0;//permet de vérifier si le déplacement s'est fait ou pas, et en fonction, de décrémenté le score affiché.
     char touche;
     EffaceEcran();
@@ -430,7 +430,6 @@ void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
     FixePosCurseur(23,6);
     printf("Enter to stop the game");
     FixePosCurseur(posH[1], posH[0]);
-    clauseDeSortie=1; //la valeur de la clause de sortie est utilisée à la ligne suivante afin qu'elle continue à tourner jusqu'à ce que celle-ci soit nulle (condition de victoire/défaite)
     /*Dans la suite du code, le FixePosCurseur et le tableau n'ont pas l'air d'avoir de lien, mais celà est dû à l'inversion des axes
     X et Y dans notre compréhension*/
 
@@ -608,8 +607,9 @@ void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
 }
 
 
-void jeuTWO(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe], int posH[2], int posM[2], int clauseDeSortie)
+void jeuTWO(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][LargeurLabyrinthe], int posH[2], int posM[2])
 {
+    int clauseDeSortie = 1;
     int score = 0;
     int scorePlus=0;
     char touche;
@@ -644,7 +644,6 @@ void jeuTWO(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
     printf("D to go right");
     FixePosCurseur(23,13);
     printf("Enter to stop the game");
-    clauseDeSortie=1;
 
     while(clauseDeSortie)
     {
