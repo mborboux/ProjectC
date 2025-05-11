@@ -47,7 +47,7 @@ int main() ///MAX
 
     do
     {
-        printf("\n===Menu principal===\n1. Introduction\n2. Changer les noms\n3. Choix du labyrinthe\n4. Jeu difficulte 1\n5. Jeu difficulte 2\n");
+        printf("\n===Menu principal===\n1. Introduction\n2. Changer les noms\n3. Choix du labyrinthe\n4. Jeu difficulte 1\n5. Jeu difficulte 2\n6. Quitter le jeu\n");
         choix = getch();//permet d'établir un choix sans la commande entrée
 
         switch (choix)
@@ -81,13 +81,18 @@ int main() ///MAX
             jeuTWO(choixLabyrinthe, labyrintheChoisi, posH, posM); //Permet de choisir le deuxième niveau de difficulté avec le labyrinthe associé
 
             break;
+        case '6':
+
+            return 0;
+
+            break;
         }
         EffaceEcran();
         FixePosCurseur(0,0);
     }
-    while (choix < 1 || choix >6); //bloque la sortie tant que les valeurs de 1 à 5 ne sont pas entrées
+    while (choix < 1 || choix >7); //bloque la sortie tant que les valeurs de 1 à 5 ne sont pas entrées
 
-    return 0;
+
 }
 void renameCharacter(char nom_hero[], char nom_princesse[])// Ce code reprend pour argument les 2 chaines de caractères contenant les noms du héros et de la princesse, ceux-ci peuvent être modulé comme on le souhaite
 {
