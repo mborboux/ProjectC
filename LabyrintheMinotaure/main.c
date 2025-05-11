@@ -383,7 +383,7 @@ void miseEnPlaceMinotaure(int posM[2], int labyrinthe[HauteurLabyrinthe][Largeur
     }
     while(conditionDeSortie);
 }
-void miseEnPlacePrincess(int Labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe])
+void miseEnPlacePrincess(int labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe])
 {
     int conditionDeSortie = 1;
     int posX, posY;
@@ -391,9 +391,9 @@ void miseEnPlacePrincess(int Labyrinthe[HauteurLabyrinthe][LargeurLabyrinthe])
     {
         posX = rand()%HauteurLabyrinthe;
         posY = rand()%LargeurLabyrinthe;
-        if(Labyrinthe[posX][posY]==0)
+        if(labyrinthe[posX][posY]==0)
         {
-            Labyrinthe[posX][posY] = 4; //mets en place la princesse dans le labyrinthe
+            labyrinthe[posX][posY] = 4; //mets en place la princesse dans le labyrinthe
             conditionDeSortie = 0;//mets la valeur à 0 pour sortir de la boucele
         };
     }
@@ -576,6 +576,7 @@ void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
             if(touche == 13)
             {
                 EffaceEcran();
+                clauseDeSortie=0;
                 break;
             }         /// code ASCII de la touche enter
             if(scoreMinus)
@@ -877,6 +878,7 @@ void jeuTWO(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
             if(touche == 13)         /// code ASCII de la touche enter
             {
                 EffaceEcran();
+                clauseDeSortie = 0;
                 break;
             }
             if(scorePlus)
