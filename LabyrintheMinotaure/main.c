@@ -603,7 +603,7 @@ void jeuONE(int choixLabyrinthe, int labyrintheChoisi[HauteurLabyrinthe][Largeur
                 printf(" %d", score);
                 scoreMinus=0;
             }
-            FixePosCurseur(posH[1],posH[0]);
+
 
 
         }
